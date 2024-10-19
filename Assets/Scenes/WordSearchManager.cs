@@ -112,7 +112,7 @@ public class WordSearchManager : MonoBehaviour
     void CreateGridLetter(int row, int col, string letter)
     {
         GameObject gridLetter = Instantiate(gridLetterPrefab, layoutGroupObject.transform);
-        gridLetter.GetComponent<TextMeshProUGUI>().text = letter;
+        gridLetter.GetComponentInChildren<TextMeshProUGUI>().text = letter;
     }
 
     void DisplayWords()
@@ -138,8 +138,25 @@ public class WordSearchManager : MonoBehaviour
     {
         if (wordTrie.Search(selectedWord))
         {
-            Debug.Log("Word Found: " + selectedWord);
-            // Logic for marking the word as found and updating the UI
+            switch (usingPlaceholder)
+            {
+                case false:
+                    Debug.Log("Word Found: " + selectedWord);
+                    wordsToFind.Remove(selectedWord);
+                    Debug.Log("Removing word...");
+                    wordListText.text = "";
+                    DisplayWords();
+                    Debug.Log("Words left: " + wordsToFind.Count);
+                    break;
+                case true:
+                    Debug.Log("Word Found: " + selectedWord);
+                    placeholderWords.Remove(selectedWord);
+                    Debug.Log("Removing word...");
+                    wordListText.text = "";
+                    DisplayWords();
+                    Debug.Log("Words left: " + placeholderWords.Count);
+                    break;
+            }
         }
         else
         {
