@@ -25,5 +25,6 @@ public class GridLetter : MonoBehaviour
             WordSearchManager.Instance.currentInputCount++;
         }
 
+
     }
 }
